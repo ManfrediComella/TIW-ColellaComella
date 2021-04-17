@@ -6,6 +6,22 @@ public class Item {
 	
 	private String name;
 	
+	public int getOwner() {
+		return owner;
+	}
+
+	public void setOwner(int owner) {
+		this.owner = owner;
+	}
+
+	public int getAuction() {
+		return auction;
+	}
+
+	public void setAuction(int auction) {
+		this.auction = auction;
+	}
+
 	private int owner;
 	
 	private int auction;

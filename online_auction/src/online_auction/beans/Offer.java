@@ -10,6 +10,22 @@ public class Offer {
 	
 	private int auction;
 	
+	public int getBidder() {
+		return bidder;
+	}
+
+	public void setBidder(int bidder) {
+		this.bidder = bidder;
+	}
+
+	public int getAuction() {
+		return auction;
+	}
+
+	public void setAuction(int auction) {
+		this.auction = auction;
+	}
+
 	private int amount;
 	
 	private Date datetime;
