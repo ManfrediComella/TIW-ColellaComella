@@ -1,5 +1,7 @@
 package online_auction.beans;
 
+import java.sql.Blob;
+
 public class Item {
 	
 	private int itemId;
@@ -26,7 +28,7 @@ public class Item {
 	
 	private int auction;
 	
-	private byte[] image;
+	private Blob image;
 	
 	private String description;
 
@@ -46,11 +48,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public byte[] getImage() {
+	public Blob getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 
