@@ -11,7 +11,7 @@ import online_auction.beans.UserBean;
 
 public class UserDAO {
 	private Connection con;
-	
+
 	public UserDAO(Connection connection) {
 		this.con = connection;
 	}
@@ -40,8 +40,6 @@ public class UserDAO {
 		}
 		return code;
 	}
-	
-	
 
 	public int deleteUser(UserBean user) throws SQLException {
 		String query = "DELETE FROM user_table WHERE username = ?";
@@ -65,18 +63,23 @@ public class UserDAO {
 	}
 
 	public UserBean checkCredentials(String username, String pword) throws SQLException, CredentialException {
-		String query = "SELECT userId, password FROM user_table WHERE username = ?";
+		String query = "SELECT * FROM user_table WHERE username = ?";
 		UserBean user = null;
 		try (PreparedStatement pstatement = con.prepareStatement(query);) {
-			pstatement.setString(1, pword);
+			pstatement.setString(1, username);
 			try (ResultSet result = pstatement.executeQuery();) {
-				if (pword == result.getString("password")) {
-					user = new UserBean();
-					user.setUserId(result.getInt("userId"));
-					user.setUsername(username);
-					// user.setPassword(pword);
-					return user;
+				while (result.next()) {
+					String prova = result.getString("password");
+					if (pword.equalsIgnoreCase(result.getString("password")) ) {
+						user = new UserBean();
+						user.setUserId(result.getInt("userId"));
+						user.setUsername(username);
+						// user.setPassword(pword);
+						return user;
+					}
+
 				}
+
 			}
 		}
 		throw new CredentialException("Login failure: incorrect password");

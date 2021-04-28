@@ -17,7 +17,11 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import online_auction.utils.ConnectionHandler;
 
+<<<<<<< HEAD
 @WebServlet("/HomePage")
+=======
+@WebServlet("/GoToHomePage")
+>>>>>>> branch 'main' of https://github.com/ManfrediComella/TIW-ColellaComella.git
 public class GoToHomePage extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

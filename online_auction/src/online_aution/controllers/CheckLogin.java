@@ -62,7 +62,11 @@ public class CheckLogin extends HttpServlet{
 		try {
 			user = userDAO.checkCredentials(usrn, pwd);
 		}catch(SQLException e) {
+<<<<<<< HEAD
 			e.printStackTrace(); // debug
+=======
+			e.printStackTrace(); // for debugging
+>>>>>>> branch 'main' of https://github.com/ManfrediComella/TIW-ColellaComella.git
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not Possible to check credentials");
 			return;
 		}catch(CredentialException e) {
