@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.security.auth.login.CredentialException;
+
 import online_auction.beans.UserBean;
 
 public class UserDAO {
@@ -62,8 +64,22 @@ public class UserDAO {
 		return resultCode;
 	}
 
-	public UserBean checkCredentials(String username, String Password) throws SQLException {
-		return null;
+	public UserBean checkCredentials(String username, String pword) throws SQLException, CredentialException {
+		String query = "SELECT userId, password FROM user_table WHERE username = ?";
+		UserBean user = null;
+		try (PreparedStatement pstatement = con.prepareStatement(query);) {
+			pstatement.setString(1, pword);
+			try (ResultSet result = pstatement.executeQuery();) {
+				if (pword == result.getString("password")) {
+					user = new UserBean();
+					user.setUserId(result.getInt("userId"));
+					user.setUsername(username);
+					// user.setPassword(pword);
+					return user;
+				}
+			}
+		}
+		throw new CredentialException("Login failure: incorrect password");
 	}
 
 }
