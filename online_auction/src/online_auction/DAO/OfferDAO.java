@@ -1,4 +1,4 @@
-package services;
+package online_auction.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -71,10 +71,36 @@ public class OfferDAO {
 		return code;
 	}
 
-	// DB needs to be modified : add a winningFlag to offer?
-//	public List<Offer> getWinningOffers(int userId) throws SQLException{
-//			
-//	}
+	
+	public List<Offer> getWinningOffers(int userId) throws SQLException {
+
+		Offer offer = null;
+		List<Offer> offers = new ArrayList();
+		String query = "SELECT * FROM offer WHERE bidder = ? AND winningOffer != 0";
+
+		try (PreparedStatement pstatement = con.prepareStatement(query);) {
+			pstatement.setInt(1, userId);
+
+			try (ResultSet result = pstatement.executeQuery();) {
+				while (result.next()) {
+					offer = new Offer();
+					offer.setOfferId(result.getInt("offerId"));
+					offer.setAmount(result.getInt("amount"));
+					offer.setAuction(result.getInt("auction"));
+					offer.setBidder(result.getInt("bidder"));
+					offer.setDatetime(result.getDate("datetime"));
+					offers.add(offer);
+				}
+			}
+		}
+		
+		if(offers.isEmpty()) 
+			return null;
+		else 
+			return offers;
+	}
+	
+	
 
 	public Offer getAuctionWinningOffers(int auctionId) throws SQLException {
 
@@ -87,6 +113,9 @@ public class OfferDAO {
 			pstatement.setInt(1, auctionId);
 			try (ResultSet result = pstatement.executeQuery();) {
 				maximumBid = result.getInt("amount");
+				
+				//check if a tuple was actually found
+				if(maximumBid == 0) return null;
 			}
 		}
 
