@@ -29,6 +29,7 @@ public class GoToHomePage extends HttpServlet {
 	}
 
 	public void init() throws ServletException {
+		connection = ConnectionHandler.getConnection(getServletContext());
 		ServletContext servletContext = getServletContext();
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
 		templateResolver.setTemplateMode(TemplateMode.HTML);
