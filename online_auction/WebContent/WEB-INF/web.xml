@@ -6,7 +6,7 @@
 	<display-name>online_auction</display-name>
 	<context-param>
 		<param-name>dbUrl</param-name>
-		<param-value>jdbc:mysql://localhost:3306/dbtest?serverTimezone=UTC</param-value>
+		<param-value>jdbc:mysql://localhost:3306/online_auction_db?serverTimezone=UTC</param-value>
 	</context-param>
 	<context-param>
 		<param-name>dbUser</param-name>
